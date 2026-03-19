@@ -468,6 +468,10 @@ def _find_leads_openrouter(niche: str, verbose: bool = False) -> list[Lead]:
         else:
             print("[OpenRouter] All free models rate-limited.")
             return []
+        if not response.choices:
+            if verbose:
+                print("  [OpenRouter] Empty response, retrying...")
+            continue
         msg = response.choices[0].message
         finish_reason = response.choices[0].finish_reason
         assistant_msg: dict = {"role": "assistant", "content": msg.content or ""}
