@@ -1,0 +1,37 @@
+# Output leads
+output/
+
+# Environment
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Credentials
+credentials.json
+token*.json
+*.json.example
+
+# Temp
+.tmp/
+
+# OS
+.DS_Store
+
+# Node
+node_modules/
+
+# Media / binary assets
+*.mp4
+*.mov
+*.avi
+*.jpg
+*.jpeg
+*.png
+*.gif
+execution/video_effects/public/
