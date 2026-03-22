@@ -29,6 +29,7 @@ Copy `.env.example` → `.env` and set:
 - `GROQ_API_KEY` — Fallback LLM (llama-3.3-70b-versatile, 100k tokens/day free). Get from console.groq.com
 - `GITHUB_TOKEN` — Optional (boosts GitHub rate limit 60→5000/hr)
 - `GOOGLE_MAPS_API_KEY` — Optional (enables Maps search)
+- `OUTREACH_AGENT_PATH` — Optional (defaults to `../outreach-agent/main.py`)
 
 ## Architecture
 

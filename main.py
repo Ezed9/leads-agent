@@ -13,7 +13,13 @@ load_dotenv()
 
 console = Console()
 
-OUTREACH_AGENT_PATH = "/Users/nishit/Desktop/outreach-agent/main.py"
+
+def _get_outreach_agent_path() -> str:
+    """Get outreach-agent path from env or auto-discover as sibling directory."""
+    if env_path := os.environ.get("OUTREACH_AGENT_PATH"):
+        return env_path
+    # Default: sibling directory (../outreach-agent/main.py)
+    return os.path.join(os.path.dirname(__file__), "..", "outreach-agent", "main.py")
 
 
 def save_leads_csv(leads, niche: str) -> str:
@@ -107,11 +113,14 @@ def run_filter(csv_path: str, min_score: int | None = None, has_email: bool = Fa
 
 def launch_outreach(csv_path: str):
     """Launch outreach-agent with the given CSV."""
-    if not os.path.exists(OUTREACH_AGENT_PATH):
-        console.print(f"[yellow]Outreach agent not found at {OUTREACH_AGENT_PATH}[/yellow]")
+    outreach_path = _get_outreach_agent_path()
+    resolved_path = os.path.normpath(outreach_path)
+    if not os.path.exists(resolved_path):
+        console.print(f"[yellow]Outreach agent not found at {resolved_path}[/yellow]")
+        console.print("[dim]Set OUTREACH_AGENT_PATH in .env to specify location[/dim]")
         return
     console.print(f"[bold]Launching outreach agent...[/bold]")
-    subprocess.run([sys.executable, OUTREACH_AGENT_PATH, csv_path])
+    subprocess.run([sys.executable, resolved_path, csv_path])
 
 
 def build_parser() -> argparse.ArgumentParser:
